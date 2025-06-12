@@ -23,7 +23,12 @@ export default defineConfig(({ mode }) => {
       },
       build: {
         target: 'esnext',
-        minify: 'terser'
+        minify: 'terser',
+        rollupOptions: {
+          input: {
+            main: path.resolve(__dirname, 'index.html')
+          }
+        }
       },
       css: {
         postcss: './postcss.config.js'
