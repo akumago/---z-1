@@ -14,6 +14,10 @@ export default defineConfig(({ mode }) => {
       // Define environment variables.
       define: {
         'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY || '')
+      },
+      // Restore CSS processing configuration for Tailwind CSS.
+      css: {
+        postcss: './postcss.config.js'
       }
     };
 });
