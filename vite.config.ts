@@ -17,7 +17,9 @@ export default defineConfig(({ mode }) => {
       css: {
         preprocessorOptions: {
           scss: {
-            additionalData: `@import "./index.css";`
+            additionalData: `@tailwind base;
+@tailwind components;
+@tailwind utilities;`
           }
         }
       }
