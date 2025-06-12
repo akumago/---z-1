@@ -1,14 +1,12 @@
 
 import React, { useState } from 'react';
-import { GamePhase } from '../types';
 import { MAX_PLAYER_NAME_LENGTH, DEFAULT_PLAYER_NAME } from '../constants';
 
 interface NameInputScreenProps {
   setPlayerName: (name: string) => void;
-  setGamePhase: (phase: GamePhase) => void; // Still needed to signal completion to App.tsx
 }
 
-export const NameInputScreen: React.FC<NameInputScreenProps> = ({ setPlayerName, setGamePhase }) => {
+export const NameInputScreen: React.FC<NameInputScreenProps> = ({ setPlayerName }) => {
   const [name, setName] = useState('');
 
   const handleSubmit = () => {
@@ -30,6 +28,7 @@ export const NameInputScreen: React.FC<NameInputScreenProps> = ({ setPlayerName,
         className="w-full p-3 bg-blue-900 border-2 border-blue-400 focus:border-yellow-400 rounded text-white mb-6 text-lg text-center placeholder-gray-500"
         placeholder={DEFAULT_PLAYER_NAME}
         aria-label="プレイヤー名入力"
+        autoComplete="off"
       />
       <button
         onClick={handleSubmit}
