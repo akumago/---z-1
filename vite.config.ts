@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     
     return {
-      base: process.env.NODE_ENV === 'production' ? '/---z-1/' : './',
+      base: mode === 'production' ? '/---z-1/' : './',
       define: {
         'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY || ''),
         'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY || '')
@@ -23,12 +23,7 @@ export default defineConfig(({ mode }) => {
       },
       build: {
         target: 'esnext',
-        minify: 'terser',
-        rollupOptions: {
-          input: {
-            main: path.resolve(__dirname, 'index.html')
-          }
-        }
+        minify: 'terser'
       },
       css: {
         postcss: './postcss.config.js'
