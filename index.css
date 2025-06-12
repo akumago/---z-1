@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles */
+@layer base {
+  :root {
+    --background-color: #0C0C0C;
+    --text-color: #FFFFFF;
+    --primary-color: #4CAF50;
+    --secondary-color: #2196F3;
+    --danger-color: #F44336;
+    --success-color: #4CAF50;
+    --warning-color: #FFC107;
+    --info-color: #2196F3;
+  }
+}
+
+@layer components {
+  .container {
+    @apply mx-auto px-4 max-w-4xl;
+  }
+  
+  .btn {
+    @apply px-4 py-2 rounded-md text-white font-bold transition-colors duration-200;
+  }
+  
+  .btn-primary {
+    @apply bg-primary-color hover:bg-primary-color/90;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary-color hover:bg-secondary-color/90;
+  }
+  
+  .btn-danger {
+    @apply bg-danger-color hover:bg-danger-color/90;
+  }
+  
+  .btn-success {
+    @apply bg-success-color hover:bg-success-color/90;
+  }
+  
+  .btn-warning {
+    @apply bg-warning-color hover:bg-warning-color/90;
+  }
+  
+  .btn-info {
+    @apply bg-info-color hover:bg-info-color/90;
+  }
+}
