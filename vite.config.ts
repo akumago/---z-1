@@ -6,6 +6,9 @@ export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     
     return {
+      // Explicitly set the project root. This is crucial for the build runner
+      // to resolve paths correctly, which was the root cause of all failures.
+      root: '.',
       // The base path for the deployed site.
       base: mode === 'production' ? '/---z-1/' : './',
       // Define environment variables.
