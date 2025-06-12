@@ -8,4 +8,10 @@ export default {
     extend: {},
   },
   plugins: [],
+  prefix: '',
+  important: false,
+  separator: ':',
+  corePlugins: {
+    preflight: true,
+  },
 }

@@ -15,12 +15,11 @@ export default defineConfig(({ mode }) => {
         }
       },
       css: {
-        preprocessorOptions: {
-          scss: {
-            additionalData: `@tailwind base;
-@tailwind components;
-@tailwind utilities;`
-          }
+        postcss: {
+          plugins: [
+            require('@tailwindcss/postcss'),
+            require('autoprefixer')
+          ]
         }
       }
     };
