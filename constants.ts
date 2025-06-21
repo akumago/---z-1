@@ -1,5 +1,3 @@
-
-
 import { PlayerClass, Skill, Item, Enemy, Region, StatBoost, SkillType, TargetType, SkillCardOption, WisdomFragment, QuizQuestion, DebuffType, BuffType } from './types';
 
 export const MAX_PLAYER_NAME_LENGTH = 4;
@@ -14,7 +12,15 @@ export const SHIELD_ENHANCEMENT_DEFENSE_BONUS_PER_LEVEL = 1;
 
 export const PLAYER_CLASSES: Record<PlayerClass, { baseStats: StatBoost, initialSkills: string[] }> = {
   [PlayerClass.HERO]: {
-    baseStats: { maxHp: 28, maxMp: 15, attack: 7, defense: 5, speed: 5, critRate: 0.03 },
+    baseStats: { 
+      maxHp: 28, 
+      maxMp: 15, 
+      attack: 7, 
+      defense: 5, 
+      magicDefense: 3,  // 魔法防御力を追加
+      speed: 5, 
+      critRate: 0.03 
+    },
     initialSkills: ["s_power_strike", "s_fireball", "s_heal_light"],
   },
 };
@@ -172,7 +178,7 @@ export const ALL_ENEMIES: Record<string, Enemy> = {
     skills: [ALL_SKILLS.s_bash], aiBehavior: "こうげきてき", resistances: { dark: 'resist', ice: 'weak' }, activeDebuffs: []
   },
   e_micchy_sexy_knight_boss: {
-    id: "e_micchy_sexy_knight_boss", name: "ミッチーセクシーナイト", spriteUrl: "https://i.imgur.com/MWUBRnw.jpeg",
+    id: "e_micchy_sexy_knight_boss", name: "ミッチーセクシーナイト", spriteUrl: "https://raw.githubusercontent.com/akumago/kaihatu/main/mittigazou/MWUBRnw%20-%20Imgur.png",
     stats: { maxHp: Math.floor(160 * 1.3 * 1.25), currentHp: Math.floor(160 * 1.3 * 1.25), maxMp: 25, currentMp: 25, attack: Math.floor(20*1.25 * 1.2), defense: Math.floor(14 * 1.15), speed: 11, goldYield: 220, expYield: 130 },
     skills: [ALL_SKILLS.s_cleave, ALL_SKILLS.s_power_strike], aiBehavior: "こんごう", resistances: { fire: 'weak', dark: 'resist' }, activeDebuffs: []
   },
@@ -187,7 +193,7 @@ export const ALL_ENEMIES: Record<string, Enemy> = {
     skills: [ALL_SKILLS.s_power_strike, ALL_SKILLS.s_bash], aiBehavior: "こんごう", resistances: { fire: 'weak' }, activeDebuffs: []
   },
   e_micchy_baroku_saburou_boss: { 
-    id: "e_micchy_baroku_saburou_boss", name: "ミッチバロクサブロウ", spriteUrl: "https://i.imgur.com/Zld50GP.jpeg",
+    id: "e_micchy_baroku_saburou_boss", name: "ミッチバロクサブロウ", spriteUrl: "https://raw.githubusercontent.com/akumago/kaihatu/main/mittigazou/Zld50GP%20-%20Imgur.png",
     stats: { maxHp: Math.floor(220 * 1.3 * 1.25), currentHp: Math.floor(220 * 1.3 * 1.25), maxMp: 30, currentMp: 30, attack: Math.floor(25*1.25 * 1.2), defense: Math.floor(18 * 1.15), speed: 8, goldYield: 350, expYield: 180 },
     skills: [ALL_SKILLS.s_power_strike, ALL_SKILLS.s_bash, ALL_SKILLS.s_fireball], aiBehavior: "こんごう", resistances: { ice: 'weak', dark: 'resist' }, activeDebuffs: []
   },
@@ -401,7 +407,14 @@ export const XP_FOR_LEVEL: number[] = [
 ];
 
 export const STAT_INCREASE_PER_LEVEL: Record<PlayerClass, StatBoost> = {
-  [PlayerClass.HERO]: { maxHp: 4, maxMp: 2, attack: 1.5, defense: 1, speed: 1 },
+  [PlayerClass.HERO]: { 
+    maxHp: 6,          // 4 → 6 に増加（50%増）
+    maxMp: 2, 
+    attack: 1.5, 
+    defense: 1, 
+    magicDefense: 1,  // 魔法防御力を追加
+    speed: 1 
+  },
 };
 
 export const AVAILABLE_SKILL_CARDS: SkillCardOption[] = [

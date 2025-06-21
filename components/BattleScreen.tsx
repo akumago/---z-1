@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { Player, Enemy, Skill, Item, BattleState, GamePhase, CurrentRun, TargetType, SkillType } from '../types';
 import { PlayerStatusDisplay } from './PlayerStatusDisplay';
@@ -431,8 +429,13 @@ export const BattleScreen: React.FC<BattleScreenProps> = ({ currentRun, initialE
   let battleBgStyle: React.CSSProperties = { backgroundColor: '#0C0C0C' }; 
   let innerDivBgClass: string = 'bg-black bg-opacity-60'; 
 
-  if (isCurrentEnemyConsideredBoss) { 
-    battleBgStyle = { backgroundColor: 'black' };
+  if (isCurrentEnemyConsideredBoss && currentMainEnemy?.spriteUrl) {
+    battleBgStyle = {
+      backgroundImage: `url(${currentMainEnemy.spriteUrl})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundColor: 'black',
+    };
     innerDivBgClass = ''; 
   } else if (battleBgUrl && battleBgUrl.trim() !== "") {
     battleBgStyle = { 

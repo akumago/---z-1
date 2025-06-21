@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { Enemy } from '../types';
 import { ALL_ENEMIES } from '../constants'; // Added import for ALL_ENEMIES
@@ -26,12 +25,41 @@ export const EnemyDisplay: React.FC<EnemyDisplayProps> = ({ enemy, isSelected, o
   }, [enemy.isVideoSprite, enemy.spriteUrl, isFinalBoss]);
   
   if (isFinalBoss || isLargeRegionalBoss) {
+    // isLargeRegionalBossの場合は、背景として画像が表示されるため、ここではHPバーなどUIのみ表示
+    if (isLargeRegionalBoss && !isFinalBoss) {
+      return (
+        <div className="w-full h-full relative flex flex-col items-center justify-end"> 
+          <div className="absolute bottom-1/4 left-1/2 transform -translate-x-1/2 z-10 p-2 sm:p-3 w-11/12 max-w-md">
+            {/* HPバーと名前の表示は残す */}
+            <p className={`text-xl sm:text-2xl font-bold text-shadow-dq text-center mb-2 text-orange-400`}>{enemy.name}</p>
+            <div className="w-full max-w-sm mx-auto bg-gray-800 h-4 sm:h-5 border-2 border-gray-400 rounded-sm overflow-hidden shadow-inner relative">
+              <div
+                className={`absolute top-0 left-0 h-full transition-all duration-500 ease-out flex items-center justify-center font-bold text-white text-shadow-sm bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-400 text-sm`}
+                style={{ width: `${hpPercentage}%` }}
+                role="progressbar"
+                aria-valuenow={enemy.stats.currentHp}
+                aria-valuemin={0}
+                aria-valuemax={enemy.stats.maxHp}
+                aria-label={`${enemy.name} HP`}
+              >
+                {enemy.stats.currentHp}
+              </div>
+               <div className="absolute top-0 right-2 h-full flex items-center justify-center text-white text-sm font-bold text-shadow-sm">
+                 / {enemy.stats.maxHp}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     // Determine image class based on boss type
     let imgClassName = "max-w-full max-h-full object-contain"; // Default for final boss image, and now for regional bosses too
     if (isFinalBoss && enemy.isVideoSprite) { // Special case for final boss video to fill
       imgClassName = "w-full h-full object-fill";
     } else if (isLargeRegionalBoss) {
-      imgClassName = "max-w-full max-h-full object-contain"; // Ensure regional boss images are contained
+      // 画像がコンテナの上部に固定され、高さが親要素の60%を占めるように変更
+      imgClassName = "absolute top-0 left-1/2 -translate-x-1/2 h-3/5 w-auto object-contain"; 
     }
 
 
@@ -64,11 +92,11 @@ export const EnemyDisplay: React.FC<EnemyDisplayProps> = ({ enemy, isSelected, o
             />
           )}
         </div>
-        <div className="absolute bottom-1 sm:bottom-2 left-1/2 transform -translate-x-1/2 z-10 bg-transparent p-1 sm:p-2 rounded-lg shadow-xl w-11/12 max-w-sm">
-          <p className={`text-lg sm:text-xl font-bold text-shadow-dq text-center mb-1 ${isFinalBoss ? 'text-red-400 animate-pulse' : 'text-orange-400'}`}>{enemy.name}</p>
-          <div className="w-full max-w-xs mx-auto bg-gray-800 h-3 sm:h-4 border-2 border-gray-400 rounded-sm overflow-hidden shadow-inner">
+        <div className="absolute bottom-1/4 left-1/2 transform -translate-x-1/2 z-10 bg-black bg-opacity-50 p-2 sm:p-3 rounded-lg shadow-xl w-11/12 max-w-md">
+          <p className={`text-xl sm:text-2xl font-bold text-shadow-dq text-center mb-2 ${isFinalBoss ? 'text-red-400 animate-pulse' : 'text-orange-400'}`}>{enemy.name}</p>
+          <div className="w-full max-w-sm mx-auto bg-gray-800 h-4 sm:h-5 border-2 border-gray-400 rounded-sm overflow-hidden shadow-inner relative">
             <div
-              className={`h-full transition-all duration-500 ease-out flex items-center justify-center font-bold text-white ${isFinalBoss ? 'bg-gradient-to-r from-red-600 via-red-500 to-yellow-500 text-xs' : 'bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-400 text-xs'}`}
+              className={`absolute top-0 left-0 h-full transition-all duration-500 ease-out flex items-center justify-center font-bold text-white text-shadow-sm ${isFinalBoss ? 'bg-gradient-to-r from-red-600 via-red-500 to-yellow-500 text-sm' : 'bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-400 text-sm'}`}
               style={{ width: `${hpPercentage}%` }}
               role="progressbar"
               aria-valuenow={enemy.stats.currentHp}
@@ -76,10 +104,12 @@ export const EnemyDisplay: React.FC<EnemyDisplayProps> = ({ enemy, isSelected, o
               aria-valuemax={enemy.stats.maxHp}
               aria-label={`${enemy.name} HP`}
             >
-              <span className="text-shadow-sm">{enemy.stats.currentHp > 0 ? enemy.stats.currentHp : ''}</span>
+              {enemy.stats.currentHp}
+            </div>
+             <div className="absolute top-0 right-2 h-full flex items-center justify-center text-white text-sm font-bold text-shadow-sm">
+               / {enemy.stats.maxHp}
             </div>
           </div>
-           <p className="text-xs sm:text-sm text-shadow-dq text-center mt-1">HP: {enemy.stats.currentHp} / {enemy.stats.maxHp}</p>
         </div>
       </div>
     );
